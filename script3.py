@@ -2,6 +2,8 @@ import script, urllib2, re
 
 response = urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno=FB68CCF1')
 datos = response.read()
+print datos
+print "---------------------------"
 tareas = re.compile("tareas")
 horario = re.compile("horario")
 notas = re.compile("NOTAS")
@@ -17,6 +19,12 @@ pattern2 = re.compile(r"(.*?):(.*?):(.*?)/")
 grades = pattern2.findall(notas)
 print "assignments: "
 print assignments
+print "---------------------------"
 print "grades: "
 print grades
+print "---------------------------"
+print "horario: "
+print horario
+print "---------------------------"
+print "Proxima tarea: "
 print script.nearAssignment(assignments)
