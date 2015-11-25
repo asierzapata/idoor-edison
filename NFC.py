@@ -24,4 +24,4 @@ class NFC():
         # Request al servidor web de los datos del alumno
 		response = urllib2.urlopen(web+str2)
 	   	clf.close()
-		return response
+		return (response, str2)
