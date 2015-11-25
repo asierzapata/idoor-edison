@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
-import re, time, script
+import re, time, script, urllib2
 
 class parser:
 	def __init__(self, response):
-		self.datos = response.read()
+		self.datos = response[0].read()
+		self.id = response[1]
 		self.groupCreation()
 		self.day = time.strftime("%A")
 		self.traduction()
@@ -35,8 +36,8 @@ class parser:
 	def gridScheduleCreation(self,gd):
 		gd.values = []
         	horas = ['8','9','10','11','12','13','14','15','16','17','18','19','20']
-        	dias = ["Lunes","Martes","Miercoles","Jueves","Viernes"]
-		aux = []
+        	dias = ['Lunes','Martes','Miercoles','Jueves','Viernes']
+		'''aux = []
 	        hcount = 0
 		for w in range(len(horas)):
 			m = re.search(horas[w], self.horario)
@@ -70,7 +71,16 @@ class parser:
                     			gd.values.append(row)
 		if self.nextclass == None: 
 			self.nextclass = "Proximo dia"
-            
+        '''
+        	for x in horas:
+        		row = []
+        		for y in dias:
+                		try:
+                	        	row.append(self.horario[x][y])
+        			except KeyError:
+                	        	row.append("---")
+        		gd.values.append(row)
+
 	def groupCreation(self):
 		tareas = re.compile("tareas")
 		horario = re.compile("horario")
@@ -79,7 +89,7 @@ class parser:
 		y = horario.search(self.datos)
 		z = notas.search(self.datos)
 		self.tareas = self.datos[x.start()+9:y.start()-4]
-		self.horario = self.datos[y.start()+10:z.start()-2]
+		self.horario = urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno='+self.id+'&modo').read()
 		self.notas = self.datos[z.start()+6:len(self.datos)-1]
 		#Creacion del array de tareas
 		pattern = re.compile(r"\"siglas_asignatura\":\"(.*?)\",\"tarea\":\"(.*?)\",\"entrega\":\"(.*?)\"")
