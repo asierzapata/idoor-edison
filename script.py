@@ -1,7 +1,5 @@
 import re, time
 
-#TODO remake findNextClass
-
 def nearAssignment(assignments):
         near = ''
 	r = ''
