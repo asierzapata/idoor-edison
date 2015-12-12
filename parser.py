@@ -37,41 +37,6 @@ class parser:
 		gd.values = []
         	horas = ['8','9','10','11','12','13','14','15','16','17','18','19','20']
         	dias = ['Lunes','Martes','Miercoles','Jueves','Viernes']
-		'''aux = []
-	        hcount = 0
-		for w in range(len(horas)):
-			m = re.search(horas[w], self.horario)
-			if m != None:
-	     			hcount += 1
-                 
-        	aux = self.horario.split('},"',hcount)
-        	aux[hcount-1] = aux[hcount-1][:len(aux[hcount-1])-1]
-        	for q in range(len(aux)):
-            		aux[q] = re.split(",",aux[q])
-            		m = re.match(r"(.*?)\":\{(\"(.*?)\":\"(.*?)\")",aux[q][0])
-	        	aux[q][0] = m.group(2)
-       	    		aux[q].append(m.group(1))
-        	for x in horas:
-            		for y in range(len(aux)):
-                		t = re.search(x,aux[y][len(aux[y])-1])
-                		if t != None:
-                    			row = []
-                    			row.append(x)
-                    			for z in dias:
-                        			for d in range(len(aux[y])-1):
-                            				dayPattern = re.compile(r"\"(.*?)\":\"(.*?)\"")
-							t = dayPattern.match(aux[y][d])
-							if t.group(1) == z:
-								if self.day == z and self.nextHour == x: 
-									self.nextclass = t.group(2)
-									row.append(t.group(2))
-									break
-								if d == len(aux[y])-2:
-									row.append("---")  
-                    			gd.values.append(row)
-		if self.nextclass == None: 
-			self.nextclass = "Proximo dia"
-        '''
         	for x in horas:
         		row = []
         		for y in dias:
