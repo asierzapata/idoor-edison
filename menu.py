@@ -49,10 +49,6 @@ class TestApp(npyscreen.NPSApp):
 		F.add_widget_intelligent(npyscreen.FixedText, value = parser.assignments[x][0]+':'+ parser.assignments[x][1] +' para ' + parser.assignments[x][2])
         F.add(BackButton, name = "Volver al menu principal")
         # Metodo que se llama al seleccionar OK
-        def on_ok():
-            	npyscreen.notify_confirm("OK Button Pressed!")
-	        self.controller.stop()
-        F.on_ok = on_ok
 	def on_cancel():
 		F.switch_page(0)
 	F.on_cancel = on_cancel
