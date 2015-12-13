@@ -20,7 +20,7 @@ class parser:
 		if self.day == 'Thursday': self.day = 'Jueves'		
 		if self.day == 'Friday': self.day = 'Viernes'
 	def nextClass(self):
-		r = script.findNextClass(self.horario)
+		r = script.findNextClass(self.horario, self.day)
 		return r
 	def lastGrade(self):
 		tmp = self.grades[len(self.grades)-1]
