@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import re, time, script, urllib2
+import re, time, script, urllib2, json
 
 class parser:
 	def __init__(self, response):
@@ -54,7 +54,7 @@ class parser:
 		y = horario.search(self.datos)
 		z = notas.search(self.datos)
 		self.tareas = self.datos[x.start()+9:y.start()-4]
-		self.horario = urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno='+self.id+'&modo').read()
+		self.horario = json.loads(urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno='+self.id+'&modo').read())
 		self.notas = self.datos[z.start()+6:len(self.datos)-1]
 		#Creacion del array de tareas
 		pattern = re.compile(r"\"siglas_asignatura\":\"(.*?)\",\"tarea\":\"(.*?)\",\"entrega\":\"(.*?)\"")
