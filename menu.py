@@ -57,7 +57,7 @@ class TestApp(npyscreen.NPSApp):
         new_page_5 = F.add_page()
         F.add(CustomTitleText, name = "Añadir amigo")
         F.add(CustomFixedText, value = "Acerque la tarjeta de su amigo")
-        check = friendAdd(parser.id)
+        check = script.friendAdd(parser.id)
         if check is 0:
             	F.switch_page(6)
         else:
