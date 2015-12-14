@@ -69,12 +69,10 @@ class TestApp(npyscreen.NPSApp):
         F.add(CustomFixedText, value = "Perfecto! Ahora ya soy amigos")
         F.add(BackButton, name = "Volver al menu principal"
         # Metodo que se llama al seleccionar OK
-        def on_ok():
-            	self.controller.stop()
-	def on_cancel():
-		F.switch_page(0)
-	F.on_cancel = on_cancel
         F.edit()
+    # Metodo que se llama al seleccionar OK
+    def on_ok():
+    	self.controller.stop()
 class CustomFixedText(npyscreen.FixedText):
     how_exited = True
 
