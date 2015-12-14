@@ -7,9 +7,9 @@ import npyscreen, random, script, time
 #npyscreen.disableColor()
 class TestApp(npyscreen.NPSApp):
     def __init__(self, parser, controller):
-	    self.parser = parser
-	    parser.groupCreation()
-	    self.controller = controller
+	self.parser = parser
+	parser.groupCreation()
+	self.controller = controller
         self.keypress_timeout = 400
         self.addFormClass('zeroScreen',zeroScreen)
         self.addFormClass('mainScreen',mainScreen)
