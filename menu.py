@@ -11,7 +11,7 @@ class TestApp(npyscreen.NPSApp):
 	parser.groupCreation()
 	self.controller = controller
     def h_exit_escape(self):
-	self..on_ok
+	self.on_ok
     def while_waiting(self):
     	self.on_ok(self)
     # Metodo que se llama al seleccionar OK
