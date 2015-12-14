@@ -1,4 +1,4 @@
-import re, time
+import re, time, NFC
 
 def nearAssignment(assignments):
         near = ''
