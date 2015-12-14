@@ -11,7 +11,6 @@ def nearAssignment(assignments):
                 elif near[0:4] == tmp[0:4]:
                         if near[5:7] == tmp[5:7]:
                                 if near[8:10] > tmp[8:10]:
-                                        #if tmp[8:10] >= time.strftime("%d"):
                 			r = assignments[x][0]+' '+assignments[x][2]  
 		                        near = tmp
         return r
@@ -30,3 +29,17 @@ def findNextClass(H,day):
 	if r == None:
         	r = "Proximo dia"
 	return r
+
+def friendAdd(my_id):
+        nfc = NFC.NFC()
+        while True:
+                response = nfc.read('http://raiblax.com/pbe/receptor.php?id_alumno=')
+                if response != None:
+                        break
+        friend_id = response[1]
+        # Control errors: les dues id son iguals
+        if friend_id == my_id:
+                return 0
+        # Enviar la id del amic al servidor
+        else:
+                urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno=' + my_id + '&friend' + friend_id)
