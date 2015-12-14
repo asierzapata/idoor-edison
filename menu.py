@@ -24,53 +24,52 @@ class TestApp(npyscreen.NPSApp):
         F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
         parser = self.parser
 	#F.how_exited_handers[npyscreen.widget.EXITED_ESCAPE]  = self.exit_application
-	#Creacion de la pagina rapida o 0
         F.add(CustomFixedText, name = "Siguiente Clase: ", value = "Siguiente Clase: " + parser.nextClass())
         F.add(CustomFixedText, name = "Ultima nota: ", value = "Ultima nota: " + parser.lastGrade())
         F.add(CustomFixedText, name = "Ultima tarea: ", value = "Ultima tarea: " + parser.lastAssignment())
         F.add(CSButton, name = "Cerrar session")
         #Creaciopn de la pagina 1
-	new_page = F.add_page()
+	P1 = F.add_page()
 	fn = F.add(NotasButton, name = "Notas")
 	av = F.add(AvisosButton, name = "Avisos")
         dt = F.add(HorarioButton, name = "Horario")
         fb = F.add(FriendButton, name = "Añadir amigo")
 	lo = F.add(CSButton, name = "Cerrar session")        
         # Creacion pagina 2
-        new_page_2 = F.add_page()
+        P2 = F.add_page()
         t = F.add(CustomTitleText, name = "Notes:",)
         # TODO Cambiar formato del display de las notas a grid
         for x in range(parser.numGrades()):
                 F.add_widget_intelligent(CustomFixedText, value = parser.grades[x][0] + ' ' + parser.grades[x][1] + ' ' + parser.grades[x][2] )
         F.add(BackButton, name = "Volver al menu principal")
         # Creacion pagina 3
-    	new_page_3 = F.add_page()
+    	P3 = F.add_page()
     	parser.gridScheduleCreation(F.add(MyGrid, columns = 6, scroll_exit=True, exit_left = True,col_titles=['','Lunes','Martes','Miercoles','Jueves','Viernes']))
         #F.add(BackButton, name = "Volver al menu principal")
-	# Creacion pagina 3
-	new_page_4 = F.add_page()
+	# Creacion pagina 4
+	P4 = F.add_page()
 	for x in range(parser.numAssignment()):
 		F.add_widget_intelligent(CustomFixedText, value = parser.assignments[x][0]+':'+ parser.assignments[x][1] +' para ' + parser.assignments[x][2])
 		
         F.add(BackButton, name = "Volver al menu principal")
         # Creacion pagina 5
-        new_page_5 = F.add_page()
+        P6 = F.add_page()
+        F.add(CustomFixedText, value = "La tarjeta que acercaste era la tuya. Por favor, acerca la de tu amigo")
+        time.sleep(4)
+        F.switch_page(5)
+        # Creacion pagina 6
+        P6 = F.add_page()
+        F.add(CustomFixedText, value = "Perfecto! Ahora ya soy amigos")
+        F.add(BackButton, name = "Volver al menu principal")
+        # Creacion pagina 7
+        P7 = F.add_page()
         F.add(CustomTitleText, name = "Añadir amigo")
         F.add(CustomFixedText, value = "Acerque la tarjeta de su amigo")
         check = script.friendAdd(parser.id)
         if check is 0:
-            	F.switch_page(6)
+            	F.switch_page(5)
         else:
-        	F.switch_page(7)
-        F.add(BackButton, name = "Volver al menu principal")
-        # Creacion pagina 6
-        new_page_6 = F.add_page()
-        F.add(CustomFixedText, value = "La tarjeta que acercaste era la tuya. Por favor, acerca la de tu amigo")
-        time.sleep(4)
-        F.switch_page(5)
-        # Creacion pagina 7
-        new_page_7 = F.add_page()
-        F.add(CustomFixedText, value = "Perfecto! Ahora ya soy amigos")
+        	F.switch_page(6)
         F.add(BackButton, name = "Volver al menu principal")
         F.edit()
         
