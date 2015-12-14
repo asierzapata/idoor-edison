@@ -7,13 +7,16 @@ import npyscreen, random
 #npyscreen.disableColor()
 class TestApp(npyscreen.NPSApp):
     def __init__(self, parser, controller):
-	    self.parser = parser
-	    parser.groupCreation();
-	    self.controller = controller
+	self.parser = parser
+	parser.groupCreation()
+	self.controller = controller
     def h_exit_escape(self):
-	    F.on_ok
-    def while_waiting():
-    	self.on_ok()
+	self..on_ok
+    def while_waiting(self):
+    	self.on_ok(self)
+    # Metodo que se llama al seleccionar OK
+    def on_ok(self):
+    	self.controller.stop()
     def main(self):
     	#Definimos el timeout como 4 segundos
     	self.keypress_timeout = 400
@@ -48,6 +51,7 @@ class TestApp(npyscreen.NPSApp):
 	new_page_4 = F.add_page()
 	for x in range(parser.numAssignment()):
 		F.add_widget_intelligent(CustomFixedText, value = parser.assignments[x][0]+':'+ parser.assignments[x][1] +' para ' + parser.assignments[x][2])
+		
         F.add(BackButton, name = "Volver al menu principal")
         # Creacion pagina 5
         new_page_5 = F.add_page()
@@ -68,11 +72,11 @@ class TestApp(npyscreen.NPSApp):
         new_page_7 = F.add_page()
         F.add(CustomFixedText, value = "Perfecto! Ahora ya soy amigos")
         F.add(BackButton, name = "Volver al menu principal"
-        # Metodo que se llama al seleccionar OK
+        def on_cancel():
+		F.switch_page(0)
+	F.on_cancel = on_cancel
         F.edit()
-    # Metodo que se llama al seleccionar OK
-    def on_ok():
-    	self.controller.stop()
+        
 class CustomFixedText(npyscreen.FixedText):
     how_exited = True
 
