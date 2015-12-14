@@ -23,9 +23,9 @@ class TestApp(npyscreen.NPSApp):
         F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
         parser = self.parser
 	#F.how_exited_handers[npyscreen.widget.EXITED_ESCAPE]  = self.exit_application
-        F.add(npyscreen.FixedText, name = "Siguiente Clase: ", value = "Siguiente Clase: " + parser.nextClass())
-        F.add(npyscreen.FixedText, name = "Ultima nota: ", value = "Ultima nota: " + parser.lastGrade())
-        F.add(npyscreen.FixedText, name = "Ultima tarea: ", value = "Ultima tarea: " + parser.lastAssignment())
+        F.add(CustomFixedText, name = "Siguiente Clase: ", value = "Siguiente Clase: " + parser.nextClass())
+        F.add(CustomFixedText, name = "Ultima nota: ", value = "Ultima nota: " + parser.lastGrade())
+        F.add(CustomFixedText, name = "Ultima tarea: ", value = "Ultima tarea: " + parser.lastAssignment())
         F.add(CSButton, name = "Cerrar session")
 	new_page = F.add_page()
 	fn = F.add(NotasButton, name = "Notas")
@@ -37,7 +37,7 @@ class TestApp(npyscreen.NPSApp):
         t = F.add(CustomTitleText, name = "Notes:",)
         # TODO Cambiar formato del display de las notas a grid
         for x in range(parser.numGrades()):
-                F.add_widget_intelligent(npyscreen.FixedText, value = parser.grades[x][0] + ' ' + parser.grades[x][1] + ' ' + parser.grades[x][2] )
+                F.add_widget_intelligent(CustomFixedText, value = parser.grades[x][0] + ' ' + parser.grades[x][1] + ' ' + parser.grades[x][2] )
         F.add(BackButton, name = "Volver al menu principal")
         # Creacion pagina 4
     	new_page_3 = F.add_page()
@@ -46,14 +46,14 @@ class TestApp(npyscreen.NPSApp):
 	# Creacion pagina 5
 	new_page_4 = F.add_page()
 	for x in range(parser.numAssignment()):
-		F.add_widget_intelligent(npyscreen.FixedText, value = parser.assignments[x][0]+':'+ parser.assignments[x][1] +' para ' + parser.assignments[x][2])
+		F.add_widget_intelligent(CustomFixedText, value = parser.assignments[x][0]+':'+ parser.assignments[x][1] +' para ' + parser.assignments[x][2])
         F.add(BackButton, name = "Volver al menu principal")
         # Metodo que se llama al seleccionar OK
 	def on_cancel():
 		F.switch_page(0)
 	F.on_cancel = on_cancel
         F.edit()
-class CustomFixedText(npyscreen.TitleSelectOne):
+class CustomFixedText(npyscreen.FixedText):
     how_exited = True
 
 class CustomTitleSelectOne(npyscreen.TitleSelectOne):
