@@ -56,7 +56,7 @@ class TestApp(npyscreen.NPSApp):
         check = friendAdd(parser.id)
         if check is 0:
             	F.switch_page(6)
-        elif:
+        else:
         	F.switch_page(7)
         F.add(BackButton, name = "Volver al menu principal")
         # Creacion pagina 6
