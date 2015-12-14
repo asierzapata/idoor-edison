@@ -71,10 +71,7 @@ class TestApp(npyscreen.NPSApp):
         # Creacion pagina 7
         new_page_7 = F.add_page()
         F.add(CustomFixedText, value = "Perfecto! Ahora ya soy amigos")
-        F.add(BackButton, name = "Volver al menu principal"
-        def on_cancel():
-		F.switch_page(0)
-	F.on_cancel = on_cancel
+        F.add(BackButton, name = "Volver al menu principal")
         F.edit()
         
 class CustomFixedText(npyscreen.FixedText):
