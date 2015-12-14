@@ -3,7 +3,7 @@
 
 #TODO 
 
-import npyscreen, random, script
+import npyscreen, random, script, time
 #npyscreen.disableColor()
 class TestApp(npyscreen.NPSApp):
     def __init__(self, parser, controller):
