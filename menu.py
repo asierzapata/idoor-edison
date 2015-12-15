@@ -7,9 +7,11 @@ import npyscreen, random, script, time
 #npyscreen.disableColor()
 class TestApp(npyscreen.NPSAppManaged):
     def __init__(self, parser, controller):
-	self.parser = parser
-	parser.groupCreation()
-	self.controller = controller
+    	self.parser = parser
+    	parser.groupCreation()
+    	self.controller = controller
+    	self.run()
+    def onStart(self):
         self.keypress_timeout = 400
         self.STARTING_FORM = 'zeroScreen'
         self.addForm('zeroScreen',zeroScreen)
