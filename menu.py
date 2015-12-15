@@ -10,6 +10,7 @@ class TestApp(npyscreen.NPSApp):
 	self.parser = parser
 	parser.groupCreation()
 	self.controller = controller
+	self.keypress_timeout = 40
     def h_exit_escape(self):
 	self.on_ok
     def while_waiting(self):
@@ -18,8 +19,6 @@ class TestApp(npyscreen.NPSApp):
     def on_ok(self):
     	self.controller.stop()
     def main(self):
-    	#Definimos el timeout como 4 segundos
-    	self.keypress_timeout = 40
 	# Creacion del Form y de los botones de la 1a pagina
         F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
         parser = self.parser
@@ -27,7 +26,7 @@ class TestApp(npyscreen.NPSApp):
         F.add(CustomFixedText, name = "Siguiente Clase: ", value = "Siguiente Clase: " + parser.nextClass())
         F.add(CustomFixedText, name = "Ultima nota: ", value = "Ultima nota: " + parser.lastGrade())
         F.add(CustomFixedText, name = "Ultima tarea: ", value = "Ultima tarea: " + parser.lastAssignment())
-        F.add(CSButton, name = "Cerrar session")
+        F.add_widget_intelligent(CSButton, name = "Cerrar session")
         #Creaciopn de la pagina 1
 	P1 = F.add_page()
 	fn = F.add(NotasButton, name = "Notas")
