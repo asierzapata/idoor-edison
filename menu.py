@@ -61,7 +61,6 @@ class TestApp(npyscreen.NPSApp):
         P6 = F.add_page()
         F.add(CustomFixedText, value = "Perfecto! Ahora ya soy amigos")
         F.add(BackButton, name = "Volver al menu principal")
-        rb2.setParser(self.parser)
         # Creacion pagina 7
         P7 = F.add_page()
         F.add(CustomTitleText, name = "Añadir amigo")
