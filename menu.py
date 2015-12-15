@@ -52,7 +52,8 @@ class TestApp(npyscreen.NPSApp):
         F.add_widget_intelligent(BackButton, name = "Volver al menu principal")
         # Creacion pagina 5
         P6 = F.add_page()
-        F.add(CustomFixedText, value = "La tarjeta que acercaste era la tuya. Por favor, acerca la de tu amigo")
+        F.add(CustomFixedText, value = "La tarjeta que acercaste era la tuya.")
+        F.add(CustomFixedText, value = "Por favor, acerca la de tu amigo.")
         rb1 = F.add(ReadyButton, name= "Continuar")
         rb1.setParser(self.parser)
         F.add(BackButton, name = "Volver al menu principal")
@@ -64,13 +65,14 @@ class TestApp(npyscreen.NPSApp):
         # Creacion pagina 7
         P7 = F.add_page()
         F.add(CustomTitleText, name = "Añadir amigo")
-        F.add(CustomFixedText, value = "Acerque la tarjeta de su amigo. Cuando estes preparado selecciona Continuar")
+        F.add(CustomFixedText, value = "Acerque la tarjeta de su amigo.")
+        F.add(CustomFixedText, value = "Cuando estes preparado selecciona Continuar.")
         rb2 = F.add(ReadyButton, name= "Continuar")
         rb2.setParser(self.parser)
         F.add(BackButton, name = "Volver al menu principal")
         F.edit()
         
-class CustomFixedText(npyscreen.MultiLineEdit):
+class CustomFixedText(npyscreen.FixedText):
     how_exited = True
 
 class CustomTitleSelectOne(npyscreen.TitleSelectOne):
@@ -94,10 +96,12 @@ class MyGrid(npyscreen.GridColTitles):
       		actual_cell.color = 'DEFAULT'
 class BackButton(npyscreen.ButtonPress):
     	def whenPressed(self):
+    		self.parent.display()
         	self.parent.switch_page(1)
         
 class AvisosButton(npyscreen.ButtonPress):
 	def whenPressed(self):
+		self.parent.display()
 		self.parent.switch_page(4)
 
 class CSButton(npyscreen.ButtonPress):
@@ -117,14 +121,17 @@ class ReadyButton(npyscreen.ButtonPress):
         		self.parent.switch_page(6)
 class NotasButton(npyscreen.ButtonPress):
 	def whenPressed(self):
+		self.parent.display()
 		self.parent.switch_page(2)
 
 class HorarioButton(npyscreen.ButtonPress):
 	def whenPressed(self):
+		self.parent.display()
 		self.parent.switch_page(3)
 
 class FriendButton(npyscreen.ButtonPress):
     	def whenPressed(self):
+    		self.parent.display()
         	self.parent.switch_page(7)
         
 if __name__ == "__main__":
