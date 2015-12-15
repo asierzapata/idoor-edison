@@ -55,17 +55,20 @@ class TestApp(npyscreen.NPSApp):
         # Creacion pagina 5
         P6 = F.add_page()
         F.add(CustomFixedText, value = "La tarjeta que acercaste era la tuya. Por favor, acerca la de tu amigo")
-        F.add(ReadyButton, name= "Continuar")
+        rb1 = F.add(ReadyButton, name= "Continuar")
+        rb1.setParser(self.parser)
         F.add(BackButton, name = "Volver al menu principal")
         # Creacion pagina 6
         P6 = F.add_page()
         F.add(CustomFixedText, value = "Perfecto! Ahora ya soy amigos")
         F.add(BackButton, name = "Volver al menu principal")
+        rb2.setParser(self.parser)
         # Creacion pagina 7
         P7 = F.add_page()
         F.add(CustomTitleText, name = "Añadir amigo")
         F.add(CustomFixedText, value = "Acerque la tarjeta de su amigo. Cuando estes preparado selecciona Continuar")
-        F.add(ReadyButton, name= "Continuar")
+        rb2 = F.add(ReadyButton, name= "Continuar")
+        rb2.setParser(self.parser)
         F.add(BackButton, name = "Volver al menu principal")
         F.edit()
         
@@ -104,8 +107,10 @@ class CSButton(npyscreen.ButtonPress):
 		self.parent.on_ok()
 
 class ReadyButton(npyscreen.ButtonPress):
+	def setParser(parser):
+		self.parser = parser
 	def whenPressed(self):
-		check = script.friendAdd(self.parentApp.parser.id)
+		check = script.friendAdd(self.parser.id)
 		if check is 0:
             		self.parent.switch_page(5)
         	else:
