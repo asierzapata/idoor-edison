@@ -33,9 +33,9 @@ class TestApp(npyscreen.NPSAppManaged):
 class zeroScreen(npyscreen.FormMultiPageActionWithMenus):
         def create(self):
              F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
-             F.add(CustomFixedText, name = "Siguiente Clase: ", value = "Siguiente Clase: " + parser.nextClass())
-             F.add(CustomFixedText, name = "Ultima nota: ", value = "Ultima nota: " + parser.lastGrade())
-             F.add(CustomFixedText, name = "Ultima tarea: ", value = "Ultima tarea: " + parser.lastAssignment())
+             F.add(CustomFixedText, name = "Siguiente Clase: ", value = "Siguiente Clase: " + self.parentApp.parser.nextClass())
+             F.add(CustomFixedText, name = "Ultima nota: ", value = "Ultima nota: " + self.parentApp.parser.lastGrade())
+             F.add(CustomFixedText, name = "Ultima tarea: ", value = "Ultima tarea: " + self.parentApp.parser.lastAssignment())
              F.add(mainButton, name = "Ir al menu principal")
              F.add(CSButton, name = "Cerrar session")
              F.edit()   
@@ -53,29 +53,29 @@ class gradesScreen(npyscreen.FormMultiPageActionWithMenus):
             F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
             t = F.add(CustomTitleText, name = "Notes:",)
             for x in range(parser.numGrades()):
-                F.add_widget_intelligent(CustomFixedText, value = self.parser.grades[x][0] + ' ' + self.parser.grades[x][1] + ' ' + self.parser.grades[x][2] )
+                F.add_widget_intelligent(CustomFixedText, value = self.parentApp.parser.grades[x][0] + ' ' + self.parentApp.parser.grades[x][1] + ' ' + self.parentApp.parser.grades[x][2] )
             F.add(BackButton, name = "Volver al menu principal")
             F.edit()   
 class scheduleScreen(npyscreen.FormMultiPageActionWithMenus):
         def create(self):
     	    F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
-    	    parser.gridScheduleCreation(F.add(MyGrid, columns = 6, scroll_exit=True, exit_left = True,col_titles=['','Lunes','Martes','Miercoles','Jueves','Viernes']))
+    	    self.parentApp.parser.gridScheduleCreation(F.add(MyGrid, columns = 6, scroll_exit=True, exit_left = True,col_titles=['','Lunes','Martes','Miercoles','Jueves','Viernes']))
             F.add(BackButton, name = "Volver al menu principal")
             F.edit()         
 class assignmentsScreen(npyscreen.FormMultiPageActionWithMenus):
         def create(self):
 	    F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
 	    for x in range(parser.numAssignment()):
-		      F.add_widget_intelligent(CustomFixedText, value = parser.assignments[x][0]+':'+ parser.assignments[x][1] +' para ' + parser.assignments[x][2])
+		      F.add_widget_intelligent(CustomFixedText, value = self.parentApp.parser.assignments[x][0]+':'+ self.parentApp.parser.assignments[x][1] +' para ' + self.parentApp.parser.assignments[x][2])
             F.add(BackButton, name = "Volver al menu principal")
             F.edit()
 class friendErrorScreen(npyscreen.FormMultiPageActionWithMenus):
         def create(self):
             F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
             F.add(CustomFixedText, value = "La tarjeta que acercaste era la tuya. Por favor, acerca la de tu amigo")
-            time.sleep(4)
-            F.switch_page(5)
             F.edit()
+            time.sleep(5)
+            self.parentApp.switchForm('friendScreen')
 class friendSuccesScreen(npyscreen.FormMultiPageActionWithMenus):
         def create(self):
             F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
@@ -87,14 +87,14 @@ class friendScreen(npyscreen.FormMultiPageActionWithMenus):
             F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
             F.add(CustomTitleText, name = "Añadir amigo")
             F.add(CustomFixedText, value = "Acerque la tarjeta de su amigo")
-            time.sleep(2)
-            check = script.friendAdd(parser.id)
-            if check is 0:
-                F.switch_page(5)
-            else:
-        	F.switch_page(6)
             F.add(BackButton, name = "Volver al menu principal")
             F.edit()
+            check = script.friendAdd(parser.id)
+            time.sleep(2)
+            if check is 0:
+                 self.parentApp.switchForm('friendSuccesScreen')
+            else:
+        	 self.parentApp.switchForm('friendErrorScreen')
       
 class CustomFixedText(npyscreen.FixedText):
     how_exited = True
