@@ -11,7 +11,7 @@ class TestApp(npyscreen.NPSAppManaged):
 	parser.groupCreation()
 	self.controller = controller
         self.keypress_timeout = 400
-        self.addFormClass('zeroScreen',zeroScreen)
+        self.addFormClass('MAIN',zeroScreen)
         self.addFormClass('mainScreen',mainScreen)
         self.addFormClass('gradesScreen',gradesScreen)
         self.addFormClass('scheduleScreen',scheduleScreen)
