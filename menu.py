@@ -72,7 +72,7 @@ class TestApp(npyscreen.NPSApp):
         F.add(BackButton, name = "Volver al menu principal")
         F.edit()
         
-class CustomFixedText(npyscreen.FixedText):
+class CustomFixedText(npyscreen.MultiLineEdit):
     how_exited = True
 
 class CustomTitleSelectOne(npyscreen.TitleSelectOne):
@@ -112,8 +112,10 @@ class ReadyButton(npyscreen.ButtonPress):
 	def whenPressed(self):
 		check = script.friendAdd(self.parser.id)
 		if check is 0:
+			self.parent.display()
             		self.parent.switch_page(5)
         	else:
+        		self.parent.display()
         		self.parent.switch_page(6)
 class NotasButton(npyscreen.ButtonPress):
 	def whenPressed(self):
