@@ -13,13 +13,13 @@ class TestApp(npyscreen.NPSAppManaged):
     def onStart(self):
         self.keypress_timeout = 400
         self.STARTING_FORM = 'zeroScreen'
-        self.registerForm('zeroScreen',zeroScreen())
-        self.registerForm('mainScreen',mainScreen())
-        self.registerForm('gradesScreen',gradesScreen())
-        self.registerForm('scheduleScreen',scheduleScreen())
-        self.registerForm('assignmentsScreen',assignmentsScreen())
-        self.registerForm('friendScreen',friendScreen())
-        self.registerForm('friendSuccesScreen',friendSuccesScreen())
+        self.registerForm('zeroScreen',zeroScreen(self))
+        self.registerForm('mainScreen',mainScreen(self))
+        self.registerForm('gradesScreen',gradesScreen(self))
+        self.registerForm('scheduleScreen',scheduleScreen(self))
+        self.registerForm('assignmentsScreen',assignmentsScreen(self))
+        self.registerForm('friendScreen',friendScreen(self))
+        self.registerForm('friendSuccesScreen',friendSuccesScreen(self))
         self.addForm('friendErrorScreen',friendErrorScreen)
     def h_exit_escape(self):
 	self.on_ok()
