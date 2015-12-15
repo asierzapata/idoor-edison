@@ -109,7 +109,7 @@ class CSButton(npyscreen.ButtonPress):
 		self.parent.on_ok()
 
 class ReadyButton(npyscreen.ButtonPress):
-	def setParser(parser):
+	def setParser(self,parser):
 		self.parser = parser
 	def whenPressed(self):
 		check = script.friendAdd(self.parser.id)
