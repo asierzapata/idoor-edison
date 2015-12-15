@@ -8,7 +8,6 @@ import npyscreen, random, script, time
 class TestApp(npyscreen.NPSAppManaged):
     def __init__(self, parser, controller):
     	self.parser = parser
-    	setParser(parser)
     	parser.groupCreation()
     	self.controller = controller
     def onStart(self):
@@ -31,18 +30,24 @@ class TestApp(npyscreen.NPSAppManaged):
     	self.controller.stop()
         
 class zeroScreen(npyscreen.Form):
+	def __init__(self,TestApp):
+		self.TestApp = TestApp
+		super(zeroScreen, self).__init__()
         def create(self):
              self.name = "IDOOR"
              self.lines=30
              self.columns=40
              self.pages_label_color='LABEL'
-             parsers = getParser()
+             parser = TestApp.parser
              self.add(CustomFixedText, name = "Siguiente Clase: ", value = "Siguiente Clase: " + parser.nextClass())
              self.add(CustomFixedText, name = "Ultima nota: ", value = "Ultima nota: " + parser.lastGrade())
              self.add(CustomFixedText, name = "Ultima tarea: ", value = "Ultima tarea: " + parser.lastAssignment())
              self.add(mainButton, name = "Ir al menu principal")
              self.add(CSButton, name = "Cerrar session")
 class mainScreen(npyscreen.Form):
+	def __init__(self,TestApp):
+		self.TestApp = TestApp
+		super(mainScreen, self).__init__()
         def create(self):
             self.name = "IDOOR"
             self.lines=30
@@ -54,36 +59,49 @@ class mainScreen(npyscreen.Form):
             fb = self.add(FriendButton, name = "Añadir amigo")
 	    lo = self.add(CSButton, name = "Cerrar session")
 class gradesScreen(npyscreen.Form):
+	def __init__(self,TestApp):
+		self.TestApp = TestApp
+		super(gradesScreen, self).__init__()
+
         def create(self):
             self.name = "IDOOR"
             self.lines=30
             self.columns=40
             self.pages_label_color='LABEL'
-            parsers = getParser()
+            parser = TestApp.parser
             self.add(CustomTitleText, name = "Notes:",)
             for x in range(parser.numGrades()):
                 self.add_widget_intelligent(CustomFixedText, value = parser.grades[x][0] + ' ' + parser.grades[x][1] + ' ' + parser.grades[x][2] )
             self.add(BackButton, name = "Volver al menu principal")
 class scheduleScreen(npyscreen.Form):
+	def __init__(self,TestApp):
+		self.TestApp = TestApp
+		super(scheduleScreen, self).__init__()
         def create(self):
     	    self.name = "IDOOR"
             self.lines=30
             self.columns=40
             self.pages_label_color='LABEL'
-            parsers = getParser()
+            parser = TestApp.parser
     	    parser.gridScheduleCreation(F.add(MyGrid, columns = 6, scroll_exit=True, exit_left = True,col_titles=['','Lunes','Martes','Miercoles','Jueves','Viernes']))
             self.add(BackButton, name = "Volver al menu principal")
 class assignmentsScreen(npyscreen.Form):
+	def __init__(self,TestApp):
+		self.TestApp = TestApp
+		super(assignmentsScreen, self).__init__()
         def create(self):
 	    self.name = "IDOOR"
             self.lines=30
             self.columns=40
             self.pages_label_color='LABEL'
-            parsers = getParser()
+            parser = TestApp.parser
 	    for x in range(parser.numAssignment()):
 		      self.add_widget_intelligent(CustomFixedText, value = parser.assignments[x][0]+':'+ parser.assignments[x][1] +' para ' + parser.assignments[x][2])
             self.add(BackButton, name = "Volver al menu principal")
 class friendErrorScreen(npyscreen.Form):
+	def __init__(self,TestApp):
+		self.TestApp = TestApp
+		super(friendErrorScreen, self).__init__()
         def create(self):
             self.name = "IDOOR"
             self.lines=30
@@ -91,8 +109,11 @@ class friendErrorScreen(npyscreen.Form):
             self.pages_label_color='LABEL'
             self.add(CustomFixedText, value = "La tarjeta que acercaste era la tuya. Por favor, acerca la de tu amigo")
             time.sleep(5)
-            self.parentApp.switchForm('friendScreen')
+            TestApp.switchForm('friendScreen')
 class friendSuccesScreen(npyscreen.Form):
+	def __init__(self,TestApp):
+		self.TestApp = TestApp
+		super(friendSuccesScreen, self).__init__()
         def create(self):
             self.name = "IDOOR"
             self.lines=30
@@ -101,6 +122,9 @@ class friendSuccesScreen(npyscreen.Form):
             self.add(CustomFixedText, value = "Perfecto! Ahora ya soy amigos")
             self.add(BackButton, name = "Volver al menu principal")
 class friendScreen(npyscreen.Form):
+	def __init__(self,TestApp):
+		self.TestApp = TestApp
+		super(friendScreen, self).__init__()
         def create(self):
             self.name = "IDOOR"
             self.lines=30
@@ -112,9 +136,9 @@ class friendScreen(npyscreen.Form):
             time.sleep(3)
             check = script.friendAdd(parser.id)
             if check is 0:
-                 self.parentApp.switchForm('friendSuccesScreen')
+                 TestApp.switchForm('friendSuccesScreen')
             else:
-        	 self.parentApp.switchForm('friendErrorScreen')
+        	 TestApp.switchForm('friendErrorScreen')
       
 class CustomFixedText(npyscreen.FixedText):
     how_exited = True
@@ -165,11 +189,7 @@ class mainButton(npyscreen.ButtonPress):
 class FriendButton(npyscreen.ButtonPress):
     	def whenPressed(self):
         	self.parentApp.switchForm('friendScreen')
-        
-def setParser(self,parser):
-	self.parser = parser
-def getParser(self):
-	return self.parser
+
 if __name__ == "__main__":
     App = TestApp()
     App.run()
