@@ -29,8 +29,6 @@ class TestApp(npyscreen.NPSAppManaged):
     # Metodo que se llama al seleccionar OK
     def on_ok(self):
     	self.controller.stop()
-    def main(self):
-        self.switchForm('zeroScreen')
         
 class zeroScreen(npyscreen.Form):
         def create(self):
