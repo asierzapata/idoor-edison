@@ -27,7 +27,7 @@ class TestApp(npyscreen.NPSApp):
         F.add(CustomFixedText, name = "Ultima nota: ", value = "Ultima nota: " + parser.lastGrade())
         F.add(CustomFixedText, name = "Ultima tarea: ", value = "Ultima tarea: " + parser.lastAssignment())
         F.add_widget_intelligent(CSButton, name = "Cerrar session")
-        #Creaciopn de la pagina 1
+        #Creacion de la pagina 1
 	P1 = F.add_page()
 	fn = F.add(NotasButton, name = "Notas")
 	av = F.add(AvisosButton, name = "Avisos")
@@ -95,12 +95,12 @@ class MyGrid(npyscreen.GridColTitles):
       		actual_cell.color = 'DEFAULT'
 class BackButton(npyscreen.ButtonPress):
     	def whenPressed(self):
-    		self.parent.display()
+    		self.parent.DISPLAY()
         	self.parent.switch_page(1)
         
 class AvisosButton(npyscreen.ButtonPress):
 	def whenPressed(self):
-		self.parent.display()
+		self.parent.DISPLAY()
 		self.parent.switch_page(4)
 
 class CSButton(npyscreen.ButtonPress):
@@ -113,24 +113,24 @@ class ReadyButton(npyscreen.ButtonPress):
 	def whenPressed(self):
 		check = script.friendAdd(self.parser.id)
 		if check is 0:
-			self.parent.display()
+			self.parent.DISPLAY()
             		self.parent.switch_page(5)
         	else:
-        		self.parent.display()
+        		self.parent.DISPLAY()
         		self.parent.switch_page(6)
 class NotasButton(npyscreen.ButtonPress):
 	def whenPressed(self):
-		self.parent.display()
+		self.parent.DISPLAY()
 		self.parent.switch_page(2)
 
 class HorarioButton(npyscreen.ButtonPress):
 	def whenPressed(self):
-		self.parent.display()
+		self.parent.DISPLAY()
 		self.parent.switch_page(3)
 
 class FriendButton(npyscreen.ButtonPress):
     	def whenPressed(self):
-    		self.parent.display()
+    		self.parent.DISPLAY()
         	self.parent.switch_page(7)
         
 if __name__ == "__main__":
