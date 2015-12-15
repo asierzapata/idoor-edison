@@ -19,7 +19,7 @@ class Controller:
 			if response != None: 
 				break;
 		# Creacion del entorno grafico 
-		Menu = TestApp(parser(response),self)
+		Menu = TestApp(parser(response),self).run()
 		Menu.run()
 	
 	# Vuelta al estado inicial
