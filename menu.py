@@ -11,7 +11,8 @@ class TestApp(npyscreen.NPSAppManaged):
 	parser.groupCreation()
 	self.controller = controller
         self.keypress_timeout = 400
-        self.addFormClass('MAIN',zeroScreen)
+        self.STARTING_FORM = 'zeroScreen'
+        self.addFormClass('zeroScreen',zeroScreen)
         self.addFormClass('mainScreen',mainScreen)
         self.addFormClass('gradesScreen',gradesScreen)
         self.addFormClass('scheduleScreen',scheduleScreen)
@@ -19,7 +20,6 @@ class TestApp(npyscreen.NPSAppManaged):
         self.addFormClass('friendScreen',friendScreen)
         self.addFormClass('friendSuccesScreen',friendSuccesScreen)
         self.addFormClass('friendErrorScreen',friendErrorScreen)
-        self.STARTING_FORM = 'zeroScreen'
     def h_exit_escape(self):
 	    self.on_ok
     def while_waiting(self):
