@@ -10,7 +10,6 @@ class TestApp(npyscreen.NPSAppManaged):
     	self.parser = parser
     	parser.groupCreation()
     	self.controller = controller
-    	self.run()
     def onStart(self):
         self.keypress_timeout = 400
         self.STARTING_FORM = 'zeroScreen'
