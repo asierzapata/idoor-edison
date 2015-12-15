@@ -5,7 +5,7 @@
 
 import npyscreen, random, script, time
 #npyscreen.disableColor()
-class TestApp(npyscreen.NPSApp):
+class TestApp(npyscreen.NPSAppManaged):
     def __init__(self, parser, controller):
 	self.parser = parser
 	parser.groupCreation()
