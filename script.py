@@ -1,4 +1,4 @@
-import re, time, NFC
+import re, time, NFC, sys
 
 def nearAssignment(assignments):
         near = ''
@@ -31,6 +31,7 @@ def findNextClass(H,day):
 	return r
 
 def friendAdd(my_id):
+	sys.stdout = open('debug.data', 'w')
         nfc = NFC.NFC()
         while True:
                 response = nfc.read('http://raiblax.com/pbe/receptor.php?id_alumno=')
