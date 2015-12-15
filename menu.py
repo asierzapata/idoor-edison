@@ -105,7 +105,7 @@ class CSButton(npyscreen.ButtonPress):
 
 class ReadyButton(npyscreen.ButtonPress):
 	def whenPressed(self):
-		check = script.friendAdd(self.parent.parser.id)
+		check = script.friendAdd(self.parentApp.parser.id)
 		if check is 0:
             		self.parent.switch_page(5)
         	else:
@@ -120,7 +120,7 @@ class HorarioButton(npyscreen.ButtonPress):
 
 class FriendButton(npyscreen.ButtonPress):
     	def whenPressed(self):
-        	self.parent.switch_page(5)
+        	self.parent.switch_page(7)
         
 if __name__ == "__main__":
     App = TestApp()
