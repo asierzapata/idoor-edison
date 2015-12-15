@@ -19,7 +19,7 @@ class TestApp(npyscreen.NPSApp):
     	self.controller.stop()
     def main(self):
     	#Definimos el timeout como 4 segundos
-    	self.keypress_timeout = 400
+    	self.keypress_timeout = 40
 	# Creacion del Form y de los botones de la 1a pagina
         F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
         parser = self.parser
