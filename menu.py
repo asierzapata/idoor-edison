@@ -40,7 +40,7 @@ class TestApp(npyscreen.NPSApp):
         # TODO Cambiar formato del display de las notas a grid
         for x in range(parser.numGrades()):
                 F.add_widget_intelligent(CustomFixedText, value = parser.grades[x][0] + ' ' + parser.grades[x][1] + ' ' + parser.grades[x][2] )
-        F.add(BackButton, name = "Volver al menu principal")
+        F.add_widget_intelligent(BackButton, name = "Volver al menu principal")
         # Creacion pagina 3
     	P3 = F.add_page()
     	parser.gridScheduleCreation(F.add(MyGrid, columns = 6, scroll_exit=True, exit_left = True,col_titles=['','Lunes','Martes','Miercoles','Jueves','Viernes']))
@@ -49,8 +49,7 @@ class TestApp(npyscreen.NPSApp):
 	P4 = F.add_page()
 	for x in range(parser.numAssignment()):
 		F.add_widget_intelligent(CustomFixedText, value = parser.assignments[x][0]+':'+ parser.assignments[x][1] +' para ' + parser.assignments[x][2])
-		
-        F.add(BackButton, name = "Volver al menu principal")
+        F.add_widget_intelligent(BackButton, name = "Volver al menu principal")
         # Creacion pagina 5
         P6 = F.add_page()
         F.add(CustomFixedText, value = "La tarjeta que acercaste era la tuya. Por favor, acerca la de tu amigo")
