@@ -166,9 +166,9 @@ class FriendButton(npyscreen.ButtonPress):
     	def whenPressed(self):
         	self.parentApp.switchForm('friendScreen')
         
-def setParser(parser):
+def setParser(self,parser):
 	self.parser = parser
-def getParser():
+def getParser(self):
 	return self.parser
 if __name__ == "__main__":
     App = TestApp()
