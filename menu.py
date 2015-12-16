@@ -73,8 +73,8 @@ class TestApp(npyscreen.NPSApp):
         F.add(BackButton, name = "Volver al menu principal")
         # Creacion pagina 8
         P8 = F.add_page()
-        for x in range(parser.numAssignment()):
-		F.add_widget_intelligent(CustomFixedText, value = parser.friends['nombre']+' en '+ parser.friends['last_place_check'] + parser.friends['last_check'])
+        for x in range(parser.numFriends()):
+		F.add_widget_intelligent(CustomFixedText, value = parser.friends[x]['nombre']+' en '+ parser.friends[x]['last_place_check'] + parser.friends[x]['last_check'])
         F.edit()
         
 class CustomFixedText(npyscreen.FixedText):
