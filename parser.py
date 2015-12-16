@@ -36,6 +36,8 @@ class parser:
 		return near
 	def numAssignment(self):
 		return len(self.assignments)
+	def numFriends(self):
+		return len(self.friends)
 	def gridScheduleCreation(self,gd):
 		gd.values = []
         	horas = ['8','9','10','11','12','13','14','15','16','17','18','19','20']
