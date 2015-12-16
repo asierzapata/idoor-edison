@@ -29,7 +29,7 @@ class parser:
 	def numGrades(self):
 		return len(self.grades)
 	def lastCheck(self):
-		aux = json.loads(urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno='+self.id+'&amigos').read())
+		aux = json.loads(urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno='+self.id+'&last_check').read())
 		return aux['nombre']+' en '+aux['last_place_check']
 	def lastAssignment(self):
 		near = script.nearAssignment(self.assignments)
