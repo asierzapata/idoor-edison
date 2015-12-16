@@ -137,7 +137,7 @@ class HorarioButton(npyscreen.ButtonPress):
 class FriendListButton(npyscreen.ButtonPress):
 	def whenPressed(self):
 		self.parent.DISPLAY()
-		self.parent.switch_page()
+		self.parent.switch_page(8)
 
 class FriendButton(npyscreen.ButtonPress):
     	def whenPressed(self):
