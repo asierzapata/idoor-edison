@@ -24,7 +24,7 @@ class Controller:
 	
 	# Vuelta al estado inicial
 	def stop(self):
-		self.run()
+		run()
 if __name__ == "__main__":
     ctrl = Controller()
     try:
