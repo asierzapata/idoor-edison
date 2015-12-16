@@ -23,6 +23,7 @@ class TestApp(npyscreen.NPSApp):
     def main(self):
 	# Creacion del Form y de los botones de la 1a pagina
         F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
+        F.edit_return_value = 1
         parser = self.parser
 	#F.how_exited_handers[npyscreen.widget.EXITED_ESCAPE]  = self.exit_application
         F.add(CustomFixedText, name = "Siguiente Clase: ", value = "Siguiente Clase: " + parser.nextClass())
