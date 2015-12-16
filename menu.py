@@ -117,7 +117,7 @@ class AvisosButton(npyscreen.ButtonPress):
 class CSButton(npyscreen.ButtonPress):
 	def whenPressed(self):
 		self.parent.editing = False
-		self.parent.stop()
+		self.parent.on_ok()
 
 class ReadyButton(npyscreen.ButtonPress):
 	def setParser(self,parser):
