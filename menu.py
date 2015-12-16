@@ -85,7 +85,7 @@ class TestApp(npyscreen.NPSApp):
         
 class CustomForm(npyscreen.FormMultiPageActionWithMenus):
 	def on_ok():
-		self.parentApp.controller.run()
+		self.parentApp.sc.logout()
 class CustomFixedText(npyscreen.FixedText):
     how_exited = True
 
