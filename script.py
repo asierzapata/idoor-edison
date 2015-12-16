@@ -1,5 +1,10 @@
 import re, time, NFC, sys, urllib2
 
+class script():
+	def __init__(self,controller):
+		self.controller = controller
+	def logout(self):
+		controller.run()
 def nearAssignment(assignments):
         near = ''
 	r = ''
