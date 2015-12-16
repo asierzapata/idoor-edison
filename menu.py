@@ -27,7 +27,7 @@ class TestApp(npyscreen.NPSApp):
         F.add(CustomFixedText, name = "Ultima nota: ", value = "Ultima nota: " + parser.lastGrade())
         F.add(CustomFixedText, name = "Ultima tarea: ", value = "Ultima tarea: " + parser.lastAssignment())
         F.add(CustomFixedText, name = "Ultima posicion de algun amigo: ", value = "Ultimo posicion de algun amigo: ")
-        F.add(CustomFixedText, name = "amigo", value = "   " + parser.lastCheck())
+        F.add(CustomFixedText, name = "amigo", value = "  " + parser.lastCheck())
         F.add_widget_intelligent(CSButton, name = "Cerrar session")
         #Creacion de la pagina 1
 	P1 = F.add_page()
@@ -35,7 +35,7 @@ class TestApp(npyscreen.NPSApp):
 	av = F.add(AvisosButton, name = "Avisos")
         dt = F.add(HorarioButton, name = "Horario")
         fr = F.add(FriendListButton, name = "Lista de amigos")
-        fb = F.add(FriendButton, name = "Añadir amigo")
+        fb = F.add(FriendButton, name = "Anadir amigo")
 	lo = F.add(CSButton, name = "Cerrar session")        
         # Creacion pagina 2
         P2 = F.add_page()
@@ -77,6 +77,7 @@ class TestApp(npyscreen.NPSApp):
         for x in range(parser.numFriends()):
 		F.add_widget_intelligent(CustomFixedText, value = parser.friends[x]['nombre']+' en '+ parser.friends[x]['last_place_check'] + ' ')
 		F.add_widget_intelligent(CustomFixedText, value = parser.friends[x]['last_check'])
+		F.add_widget_intelligent(CustomFixedText, value = " ")
         F.edit()
         
 class CustomFixedText(npyscreen.FixedText):
