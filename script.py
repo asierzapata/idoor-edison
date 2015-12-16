@@ -1,4 +1,4 @@
-import re, time, NFC, sys
+import re, time, NFC, sys, urllib2
 
 def nearAssignment(assignments):
         near = ''
