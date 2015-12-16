@@ -43,4 +43,4 @@ def friendAdd(my_id):
                 return 0
         # Enviar la id del amic al servidor
         else:
-                urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno=' + my_id + '&friend' + friend_id)
+                urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno=' + my_id + '&friend=' + friend_id)
