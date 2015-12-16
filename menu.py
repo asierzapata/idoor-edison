@@ -26,12 +26,14 @@ class TestApp(npyscreen.NPSApp):
         F.add(CustomFixedText, name = "Siguiente Clase: ", value = "Siguiente Clase: " + parser.nextClass())
         F.add(CustomFixedText, name = "Ultima nota: ", value = "Ultima nota: " + parser.lastGrade())
         F.add(CustomFixedText, name = "Ultima tarea: ", value = "Ultima tarea: " + parser.lastAssignment())
+        F.add(CustomFixedText, name = "Ultimo posicion de algun amigo: ", value = "Ultimo posicion de algun amigo: " + parser.lastCheck())
         F.add_widget_intelligent(CSButton, name = "Cerrar session")
         #Creacion de la pagina 1
 	P1 = F.add_page()
 	fn = F.add(NotasButton, name = "Notas")
 	av = F.add(AvisosButton, name = "Avisos")
         dt = F.add(HorarioButton, name = "Horario")
+        fr = F.add(FriendListButton, name = "Lista de amigos")
         fb = F.add(FriendButton, name = "Añadir amigo")
 	lo = F.add(CSButton, name = "Cerrar session")        
         # Creacion pagina 2
@@ -69,6 +71,10 @@ class TestApp(npyscreen.NPSApp):
         rb2 = F.add(ReadyButton, name= "Continuar")
         rb2.setParser(self.parser)
         F.add(BackButton, name = "Volver al menu principal")
+        # Creacion pagina 8
+        P8 = F.add_page()
+        for x in range(parser.numAssignment()):
+		F.add_widget_intelligent(CustomFixedText, value = parser.friends['nombre']+' en '+ parser.assignments['last_place_check'] + parser.assignments['last_check'])
         F.edit()
         
 class CustomFixedText(npyscreen.FixedText):
@@ -127,6 +133,11 @@ class HorarioButton(npyscreen.ButtonPress):
 	def whenPressed(self):
 		self.parent.DISPLAY()
 		self.parent.switch_page(3)
+
+class FriendListButton(npyscreen.ButtonPress):
+	def whenPressed(self):
+		self.parent.DISPLAY()
+		self.parent.switch_page()
 
 class FriendButton(npyscreen.ButtonPress):
     	def whenPressed(self):
