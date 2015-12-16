@@ -20,10 +20,7 @@ class Controller:
 				break;
 		# Creacion del entorno grafico 
 		Menu = TestApp(parser(response),self).run()
-	
-	# Vuelta al estado inicial
-	def stop(self):
-		run()
+
 if __name__ == "__main__":
     ctrl = Controller()
     try:
