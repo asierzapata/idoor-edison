@@ -9,7 +9,7 @@ class TestApp(npyscreen.NPSApp):
     def __init__(self, parser, controller):
 	self.parser = parser
 	parser.groupCreation()
-	self.controller = controller
+	sc = script.script(controller)
 	self.keypress_timeout = 40
     def h_exit_escape(self):
 	self.on_ok
@@ -22,7 +22,7 @@ class TestApp(npyscreen.NPSApp):
     	self.controller.stop()
     def main(self):
 	# Creacion del Form y de los botones de la 1a pagina
-        F = npyscreen.FormMultiPageActionWithMenus(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
+        F = CustomForm(name = "IDOOR",lines=30,columns=40,pages_label_color='LABEL')
         F.edit_return_value = 1
         parser = self.parser
 	#F.how_exited_handers[npyscreen.widget.EXITED_ESCAPE]  = self.exit_application
@@ -83,6 +83,9 @@ class TestApp(npyscreen.NPSApp):
 		F.add_widget_intelligent(CustomFixedText, value = " ")
         F.edit()
         
+class CustomForm(npyscreen.FormMultiPageActionWithMenus):
+	def on.ok():
+		self.parentApp.controller.run()
 class CustomFixedText(npyscreen.FixedText):
     how_exited = True
 
