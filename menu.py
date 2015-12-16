@@ -74,7 +74,7 @@ class TestApp(npyscreen.NPSApp):
         # Creacion pagina 8
         P8 = F.add_page()
         for x in range(parser.numAssignment()):
-		F.add_widget_intelligent(CustomFixedText, value = parser.friends['nombre']+' en '+ parser.assignments['last_place_check'] + parser.assignments['last_check'])
+		F.add_widget_intelligent(CustomFixedText, value = parser.friends['nombre']+' en '+ parser.friends['last_place_check'] + parser.friends['last_check'])
         F.edit()
         
 class CustomFixedText(npyscreen.FixedText):
