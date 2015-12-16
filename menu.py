@@ -16,6 +16,8 @@ class TestApp(npyscreen.NPSApp):
     def while_waiting(self):
     	self.on_ok(self)
     # Metodo que se llama al seleccionar OK
+    def stop(self):
+    	self.controller.stop()
     def on_ok(self):
     	self.controller.stop()
     def main(self):
@@ -114,7 +116,7 @@ class AvisosButton(npyscreen.ButtonPress):
 
 class CSButton(npyscreen.ButtonPress):
 	def whenPressed(self):
-		self.parent.edit = false
+		self.parent.editing = false
 		self.parent.stop()
 
 class ReadyButton(npyscreen.ButtonPress):
