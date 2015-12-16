@@ -28,6 +28,9 @@ class parser:
 		return r
 	def numGrades(self):
 		return len(self.grades)
+	def lastCheck(self):
+		aux = json.loads(urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno='+self.id+'&amigos').read())
+		return aux['nombre']+' en '+aux['last_place_check']
 	def lastAssignment(self):
 		near = script.nearAssignment(self.assignments)
 		return near
@@ -55,6 +58,7 @@ class parser:
 		z = notas.search(self.datos)
 		self.tareas = self.datos[x.start()+9:y.start()-4]
 		self.horario = json.loads(urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno='+self.id+'&modo').read())['horario']
+		self.friends = json.loads(urllib2.urlopen('http://raiblax.com/pbe/receptor.php?id_alumno='+self.id+'&amigos').read())
 		self.notas = self.datos[z.start()+6:len(self.datos)-1]
 		#Creacion del array de tareas
 		pattern = re.compile(r"\"siglas_asignatura\":\"(.*?)\",\"tarea\":\"(.*?)\",\"entrega\":\"(.*?)\"")
