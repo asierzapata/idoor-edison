@@ -32,7 +32,6 @@ class conexion{
             }
         }
         return true;
-
     }
     
 
@@ -41,17 +40,14 @@ class conexion{
         //$id_grupo_asignatura = $aux[2];
         $id_profesor = $aux[1];
         $id_asignatura = $aux[0];
-        echo $id_profesor."-".$id_asignatura."-".$select_grupo;
-        //var_dump($select_grupo);
         $mysqli = $this->datos_mysqli();
-        
-        $resultado = $mysqli->query("SELECT id FROM grupo_asignatura 
-            WHERE numero=".$select_grupo." AND id_asignatura=".$id_asignatura);
+        $resultado = $mysqli->query("SELECT id FROM grupo_asignatura WHERE numero=".$select_grupo." AND id_asignatura=".$id_asignatura." LIMIT 1");
         $fila = $resultado->fetch_row();
         echo "<br>";
         $id_grupo_asignatura = $fila[0];
         $mysqli->query("INSERT INTO `tarea_alumno` (`id_profesor`,`id_grupo_asignatura`,`tarea`,`id_asignatura`,`fecha_entrega`) 
-            VALUES ('$id_profesor','$id_grupo_asignatura','$tarea','$id_asignatura','$fecha_entrega');");
+            VALUES ('$id_profesor','$id_grupo_asignatura','$tarea','$id_asignatura','$fecha_entrega');");        
+
     }
 
     function getIdAlumno($codigo){
@@ -74,8 +70,54 @@ class conexion{
             exit;
             return NULL;
         }
+        $mysqli->close();
         
     }
+    function registrar_lugar($id_alumno,$place){
+        $mysqli = $this->datos_mysqli();
+        $mysqli->query("UPDATE `alumno` SET last_check = current_timestamp WHERE id=".$id_alumno);
+        $mysqli->query("UPDATE `alumno` SET last_place_check = '$place' WHERE id=".$id_alumno);
+        $mysqli->close();
+
+    }
+    function add_friend($id_uno,$id_dos){
+        //abro tunel hacia la bd
+        $mysqli = $this->datos_mysqli();
+        if($id_uno != $id_dos){
+            $mysqli->query("INSERT INTO `amigos` (`id_uno`,`id_dos`) VALUES ('$id_uno','$id_dos');");
+            $mysqli->query("INSERT INTO `amigos` (`id_uno`,`id_dos`) VALUES ('$id_dos','$id_uno');");
+        }else{
+            echo "REKT";
+        }
+    }
+
+    function get_amigos($id_alumno,$todos){
+        $mysqli = $this->datos_mysqli();
+        $resultado = $mysqli->query("SELECT id_dos FROM amigos WHERE id_uno =".$id_alumno);
+        $i=0;
+        $amigos = array();
+        while($fila = $resultado->fetch_assoc()){
+            $info_amigo = $mysqli->query("SELECT * FROM alumno WHERE id =".$fila['id_dos']);
+            while($info = $info_amigo->fetch_assoc()){
+                $amigos[$i]['nombre'] = $info['nombre'];
+                $amigos[$i]['last_place_check'] = $info['last_place_check']; 
+                $amigos[$i]['last_check'] = /*new DateTime(*/$info['last_check']/*)*/;  
+                $i++;
+            }            
+        }
+        foreach ($amigos as $key => $value){
+            $ord[] = strtotime($value['last_check']);
+        }
+        array_multisort($ord, SORT_DESC, $amigos);
+        if($todos){
+            echo json_encode($amigos);
+        }else{
+            echo json_encode($amigos[0]);
+        }
+        
+
+    }
+
     function tareapendiente($id_alumno){
         $mysqli = $this->datos_mysqli();
         $grupos_asignaturas = $mysqli->query("SELECT id_grupo_asignatura FROM asignatura_alumno 
@@ -125,7 +167,7 @@ class conexion{
             $aux_horario = $horario->fetch_assoc();    
             $aux_horario_dividido = explode("-",$aux_horario['horario']);
             $siglas = $conexion->get_nombre_sigla_asignatura($aux_horario['id_asignatura']);
-            if($aux_horario_dividido[0]==1){
+            /*if($aux_horario_dividido[0]==1){
                 $dia = "Lunes";
             }
             elseif($aux_horario_dividido[0]==2){
@@ -139,30 +181,30 @@ class conexion{
             }
             elseif($aux_horario_dividido[0]==5){
                 $dia = "Viernes";
-            }else{echo "A TOMAR POR ... ALGO HA IDO MAL";}
+            }else{echo "A TOMAR POR ... ALGO HA IDO MAL";}*/
+            $dia = $conexion->traductor_dias($aux_horario_dividido[0]);
+            
             $retorno['horario'][$aux_horario_dividido[1]][$dia] = $siglas['siglas']." ".$aux_horario['aula'];       
 
         }
-        // echo "{\"horario\"{";
-            /*for($i=8;$i<=20;$i++){
-                if(isset($retorno['horario'][$i])){
-                    echo "\"".$i."\":{";
-                    for($j=1;$j<=5;$j++){
-                        if(isset($retorno['horario'][$i][$j])){
-                            if($j==5){
-                                 echo $conexion->traductor_dias($j).":"."\"".$retorno['horario'][$i][$j]."\"";
-                            }else{
-                                 echo $conexion->traductor_dias($j).":"."\"".$retorno['horario'][$i][$j]."\",";
-                            }
-                           
+         /*echo "{\"horario\"{";
+            for($i=8;$i<=20;$i++){
+                echo "\"".$i."\":{";
+                for($j=1;$j<=5;$j++){
+                    if(isset($retorno['horario'][$i][$j])){
+                        if($j==5){
+                             echo $conexion->traductor_dias($j).":"."\"".$retorno['horario'][$i][$j]."\"";
                         }else{
-                            if($j==5){
-                                //echo $conexion->traductor_dias($j).":"."\"libre\"";
-                            }else{
-                                //echo $conexion->traductor_dias($j).":"."\"libre\",";
-                            }
-                            
+                             echo $conexion->traductor_dias($j).":"."\"".$retorno['horario'][$i][$j]."\",";
                         }
+                       
+                    }else{
+                        if($j==5){
+                            echo $conexion->traductor_dias($j).":"."\"libre\"";
+                        }else{
+                            echo $conexion->traductor_dias($j).":"."\"libre\",";
+                        }
+                        
                     }
                 }
                 
@@ -179,19 +221,19 @@ class conexion{
 
     function traductor_dias($aux_horario_dividido){
         if($aux_horario_dividido==1){
-                $dia = "\"Lunes\"";
+                $dia = "Lunes";
         }
         elseif($aux_horario_dividido==2){
-            $dia = "\"Martes\"";
+            $dia = "Martes";
         }
         elseif($aux_horario_dividido==3){
-            $dia = "\"Miercoles\"";
+            $dia = "Miercoles";
         }
         elseif($aux_horario_dividido==4){
-            $dia = "\"Jueves\"";
+            $dia = "Jueves";
         }
         elseif($aux_horario_dividido==5){
-            $dia = "\"Viernes\"";
+            $dia = "Viernes";
         }else{echo "A TOMAR POR ... ALGO HA IDO MAL";}
         return $dia;
     }
@@ -218,9 +260,7 @@ class conexion{
         $aux = $mysqli->query("SELECT id_asignatura FROM grupo_asignatura WHERE id=".$id_grupo_asignatura);
         $fila = $aux->fetch_row();
         $datos = $conexion->get_nombre_sigla_asignatura($fila[0]);
-        return $datos;
-
-        
+        return $datos;        
     }
         
     
@@ -234,12 +274,23 @@ class conexion{
         $mysqli->close();
         return $retorno;
     }
+
+    function get_nombres_dni($id_profesor,$id_grupo_asignatura){
+        $mysqli = $this->datos_mysqli();
+    }
     
     
-    function datos_mysqli(){
+    /*function datos_mysqli(){
         $datos['user'] = "u388114445_admin";
         $datos['pw'] = "cambiame1234";
         $datos['nombre_bd'] = "u388114445_pbe";
+        $mysqli = new mysqli("localhost", $datos['user'],$datos['pw'],$datos['nombre_bd']) or die ("Error al conectar.");
+        return $mysqli;
+    }*/
+    function datos_mysqli(){
+        $datos['user'] = "admin_admin";
+        $datos['pw'] = "cambiame1234";
+        $datos['nombre_bd'] = "idoorweb";
         $mysqli = new mysqli("localhost", $datos['user'],$datos['pw'],$datos['nombre_bd']) or die ("Error al conectar.");
         return $mysqli;
     }

@@ -35,10 +35,14 @@
         <div class="login">
             <form action="controlador.php" method="POST">
                 <?php
-
-                    if(isset($_POST['error'])) {
-                        echo "Revisa tus datos de nuevo";
+                    session_start();
+                    if(isset($_SESSION["id_user"])){
+                        echo $_SESSION["id_user"];
+                        if($_SESSION["id_user"] == "incorrecta") {
+                            echo "Revisa tus datos de nuevo";
+                        }
                     }
+                    
 
                ?>
                 <input id="login_u" name="username" required="required" type="text" placeholder="Username" />
@@ -48,17 +52,17 @@
                 <button type="submit" value="Login" />Login</button>
 
 
-                <span class="form-toggle">Registrarse</span>
+                
             </form>
         </div>
-        <div class="register">
-            <form>
+        <!--<div class="register">
+            <form action="controlador.php" method="POST">
                 <input id="firstname" name="firstname" required="required" type="text" placeholder="First name" />
                 <input id="lastname" name="lastname" required="required" type="text" placeholder="Last name" />
                 <input id="email" name="email" required="required" type="enail" placeholder="Email" />
                 <input id="username" name="username" required="required" type="text" placeholder="Username" />
                 <input id="password" name="password" required="required" type="password" placeholder="Password" />
-                <!--<select id="firstname" name="select-grupo">
+                <select id="firstname" name="select-grupo">
                     <option value="0">Seleccione sus asignaturas</option>
                     <option value="1">Curs 1A</option>
                     <option value="2">Curs 1B</option>
@@ -77,19 +81,19 @@
                     <option value="4">Grup 40</option>
                     <option value="5">Grup 50</option>
                     <option value="6">Grup 60</option>
-                </select>-->
+                </select>
                 <button type="submit" value="Login" />Register</button>
                 <span class="form-toggle">Return to Login</span>
             </form>
             
-        </div>
+        </div>-->
     </div>
     <div class="footer">
         <ul class="footer-nav">
-            <li class="link">FAQ</li>
-            <li class="link">About Us</li>
-            <li class="link">Contact Us</li>
-            <li class="link">Privacy Policy</li>
+            <li class="link"></li>
+            <li class="link"></li>
+            <li class="link"></li>
+            <li class="link"></li>
         </ul>
       <!--<p class="disclaimer"><b>Disclaimer</b> Every effort is made to keep the website up and running smoothly. However, we takes no responsibility for, and will not be liable for, the website being temporarily unavailable due to technical issues beyond our control.</p>-->
     </div>

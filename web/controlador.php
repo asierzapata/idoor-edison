@@ -45,8 +45,12 @@
 			}
 			if($id == "vacia"){
 				echo "incorrecta";
-				$_SESSION["id_user"] = "vacia";
+				$_SESSION["id_user"] = "incorrecta";
+				?>
+            	<script>alert("Login incorrecto")</script>
+            	<?php
 				header ("Location: index.php");
+				
 
 			}else{
 				$_SESSION["id_user"] = $id;

@@ -1,0 +1,459 @@
+@import "bourbon";
+
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:400,500,700);
+
+@mixin square($size){
+  width: $size;
+  height: $size;
+}
+
+
+$btn-size: 5em;
+$ico-size: $btn-size/2;
+
+$c-red : #f44336;
+$c-pink: #E91E63;
+$c-purple: #9c27b0;
+$c-deeppurple: #673ab7;
+$c-indigo : #3f51b5;
+$c-blue: #2196F3;
+$c-lightblue: #03a9f4;
+$c-cyan : #00bcd4;
+$c-teal : #009688;
+$c-green : #4caf50;
+$c-lightgreen : #8bc34a;
+$c-lime: #cddc39;
+$c-yellow: #ffeb3b;
+$c-amber: #ffc107;
+$c-orange : #ff9800;
+$c-deeporange: #ff5722;
+$c-brown : #795548;
+$c-grey: #9e9e9e;
+$c-bluegrey: #607d8b;
+
+$colors: (
+  "red": $c-red,
+  "pink": $c-pink,
+  "purple": $c-purple,
+  "deeppurple": $c-deeppurple,
+  "indigo": $c-indigo,
+  "blue": $c-blue,
+  "lightblue": $c-lightblue,
+  "cyan": $c-cyan,
+  "teal": $c-teal,
+  "green": $c-green,
+  "lightgreen": $c-lightgreen,
+  "lime": $c-lime,
+  "yellow": $c-yellow,
+  "amber": $c-amber,
+  "orange": $c-orange,
+  "deeporange": $c-deeporange,
+  "brown": $c-brown,
+  "grey": $c-grey,
+  "bluegrey": $c-bluegrey
+);
+
+$types: 'text','email';
+
+*{
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body{
+  padding: 0; 
+  margin: 0;
+}
+
+body{
+  padding: 1em;
+  background: #eff0F2;
+}
+// Material stylesheet
+[class*="material-"]{
+  font-family: Roboto, sans-serif;
+
+  & p{
+    line-height: 2.88rem;
+  }
+
+  // Elements
+  &[class*="-btn"]{
+    display: inline-block;
+
+    padding: .65em;
+    margin: 1em; 
+
+    letter-spacing: .8px; 
+    transition: 0.2s ease-out;
+    border-radius: 2px;
+    text-transform: uppercase;
+
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
+    cursor: pointer; 
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow .2s ease-out;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+
+    &:hover{
+      box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    }
+    &:active{
+      box-shadow:  0 8px 17px 0 rgba(0,0,0,.2);
+    }
+
+    &[class*="btn-flat"]{
+      box-shadow: 0 0 0;
+
+      .ink{
+        background: rgba($c-blue, .8);
+      }
+    }
+
+    &[class*="btn-ico"]{
+      width: auto;
+      display: inline-block;
+
+      span{ 
+        display: block;
+        position: absolute;
+        font-size: .55rem;
+        float: left;
+        margin-left: 1em;
+        line-height: 1;
+      }
+
+      &[class*="-right"]{
+        padding-right: 3em;
+        span{
+          float: right; 
+          margin-left: 3.6em;
+        }
+      }
+    }
+
+
+
+    &[class*="-float"]{
+      border-radius: $btn-size;
+      @include square($btn-size); 
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+
+      .ink{
+        z-index: 1;
+      }
+    }
+
+    &[class*="disabled"]{
+      background-color: #DFDFDF;
+      box-shadow: none;
+      color: #9F9F9F; 
+
+      .ink{
+        background: rgba(black, .2);
+      }
+    }
+  }
+
+
+  // Colors 
+  @each $name, $variable in $colors {
+    &[class*="-#{($name)}"]{
+      background: #{($variable)};
+
+      @if $name == 'yellow' 
+        or $name == 'amber'
+        or $name == 'lime'
+        or $name == 'grey'{ 
+          color: #000;
+          background: #{($variable)};           
+        }
+
+      &[class*="btn-flat"]{
+        color: #{($variable)};
+        background: transparent;
+
+        .ink{
+          background: rgba($variable, .5);
+        }
+
+        &[class*="disabled"]{
+          background-color: transparent;
+          box-shadow: none;
+          color: #9F9F9F; 
+
+          .ink{
+            background: rgba(black, .2);
+          }
+        }
+      }
+
+    }
+  }
+
+
+  // Lists
+
+  &[class*="-list-"]{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin: 1em auto;
+    background: #fff;
+    display: block;
+    width: 100%;
+    height: auto;
+
+
+
+    li{
+      padding: 1em;
+    }
+
+    &[class*="-seam"]{
+      li{
+        box-shadow: 0 1px 0 rgba(black, .2);
+      }
+    }
+
+    &[class*="-step"]{
+      li{
+        box-shadow: 0 4px 4px -1px rgba(black, .2);
+      }
+    }
+  }
+
+  // Icons
+
+  [class*="-icon"]{
+    border-radius: $btn-size;
+    overflow: hidden;
+    display: block;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+
+    // Do not work for IE
+    &[class*="white"]{
+      -webkit-filter: invert(100%);
+      -moz-filter: invert(100%);
+      -o-filter: invert(100%);
+      filter: invert(100%);
+    }
+  }
+
+  // Layout
+  &[class*="-layout"]{
+    [class*="-g"]{
+      padding: 1em;
+      &[class*="-1"],
+      &[class*="-2"],
+      &[class*="-3"]{
+        float: left;
+      }
+    }
+  }
+
+  // Grid
+  &[class*="-g"]{
+
+    &[class*="-1"]{
+      width: 100%;
+    }
+
+    &[class*="-2"]{
+      width: 50%;
+    }
+
+    &[class*="-3"]{
+      width: 33.33%;
+    }
+  }
+
+  // Navigation
+  [class*="material-navigation"]{
+    box-shadow: rgba(0, 0, 0, 0.258824) 0px 2px 5px 0px;
+    box-sizing: border-box;
+    color: rgb(33, 33, 33);
+    height: 256px;
+    left: 0px;
+    position: fixed;
+    right: 0px;
+    text-decoration: none solid rgb(33, 33, 33);
+    text-rendering: optimizelegibility;
+    top: -192px;
+    width: 100%;
+    z-index: 1;
+    perspective-origin: 718px 128px;
+    transform-origin: 718px 128px;
+    background: rgb(194, 24, 91) none repeat scroll 0% 0% / auto padding-box border-box;
+    border: 0px none rgb(33, 33, 33);
+    font: normal normal normal normal 16px/16px RobotoDraft, Roboto, sans-serif;
+    outline: rgb(33, 33, 33) none 0px;
+    padding: 115px 16px 0px;
+
+    z-index: 100000;
+
+    // Colors 
+    @each $name, $variable in $colors {
+      &[class*="-#{($name)}"]{
+        background: #{($variable)};
+
+        @if $name == 'yellow' 
+          or $name == 'amber'
+          or $name == 'lime'
+          or $name == 'grey'{ 
+            background: #{($variable)};    
+
+            h1,h2,h3{
+              color: #000;
+            }
+          }
+      }
+    }
+
+    h1,h2,h3{
+      line-height: 170px;
+      color: #fff; 
+      font-weight: 300;
+    }
+  } 
+
+  // Inputs
+  @each $type in $types { 
+    input{
+      &[type*="#{($type)}"]{ 
+        appearance: none; 
+        border: 0;
+        border-bottom-width: 1px;  
+        border-bottom-style: solid;  
+        display: inline-block;
+
+        margin: 0 0 15px 0;
+        outline: none;
+        position: relative;
+        transition: border .2s ease-out;
+
+
+        // Input colors
+        @each $name, $variable in $colors {
+          &[class*="-#{($name)}"]{
+            border-bottom-color:$variable;
+          }
+        }
+
+
+        &:focus{ 
+          border-bottom-width: 3px; 
+        }
+
+
+
+        &::-webkit-input-placeholder{
+          &:after{
+            display: block;
+            content: attr(placeholder);
+            width: 100%; 
+            height: 100%;
+            position: absolute;
+            margin-top: -44px;            
+          } 
+        }
+      }
+    }
+  }
+
+  // Container
+  [class*="material-container"]{
+    margin-top: 70px; 
+  }
+  // Effects
+  .ink {
+    display: block; 
+    position: absolute;
+    background: rgba(white, .6);
+    border-radius: 100%;
+    transform: scale(0);
+    z-index: 0;
+  }
+
+  /*animation effect*/
+  .ink.animate {
+    animation: ripple .5s linear;
+
+  }
+  @keyframes ripple {
+    100% {
+      opacity: 0; 
+      transform: scale(2.5);
+    }
+  }
+
+  // Hierarchical animations
+  &.hierarchical-timing > * {
+    transform: scale(0);
+  }
+  &.hierarchical-timing > .animated {
+    transform: scale(1);
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+  }
+  &.hierarchical-timing .no-js & > * {
+    transform: scale(1);
+  }
+
+
+}
+
+
+
+// Unrelated to material
+header{
+  &.titles{
+    background: #fff;
+    float: left; 
+    width: 100%;
+    margin: 0;
+    padding: 0 0 0 1em ;
+    box-shadow:inset 0 -1px 0 rgba(black, .15);
+    height: 80px;
+
+    h2{
+      padding: 0; 
+      margin: 0; 
+      line-height: 80px;
+      text-transform: uppercase;
+    }
+
+    [class*="material-btn"]{
+      padding: 0 12px;
+      font-size: 16px;
+      height: 44px;
+      line-height: 44px;
+      float: right;
+
+      span{
+        left: 60px;
+        position: absolute;
+      }
+    }
+  }
+}
+section.toggle{
+  height: 0;
+  width: 100%;
+  overflow: hidden;
+
+  &.open{
+    height: auto;
+    overflow: visible;
+  }
+}
