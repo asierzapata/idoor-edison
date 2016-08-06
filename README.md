@@ -12,7 +12,7 @@ The identification of the students was made with a NFC lector and the personal u
 ## Structure
 
 /Xlib & /nfc & /npyscreen & /pykeyboard & /pymouse  -- Dependencies  
-/web -- All the source code from the web. 
+/web -- All the source code from the web.   
 /NFC.py -- Script used for reading the university card through the NFC reader.   
 /buttons.py -- Script that read the GPIO Pins of the intel edison board.  
 /controller.py -- Main script.   
