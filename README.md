@@ -15,7 +15,7 @@ The identification of the students was made with a NFC lector and the personal u
 /web -- All the source code from the web. 
 /NFC.py -- Script used for reading the university card through the NFC reader.   
 /buttons.py -- Script that read the GPIO Pins of the intel edison board.  
-/controller.py -- Main script.
-/menu.py -- Represents the GUI and the data.
-/parser.py -- Parse the json from the web and helps creation of structured data.
+/controller.py -- Main script.   
+/menu.py -- Represents the GUI and the data.  
+/parser.py -- Parse the json from the web and helps creation of structured data.  
 /script.py -- Auxiliary methods.
